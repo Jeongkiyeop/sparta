@@ -69,7 +69,8 @@
                         let name = rows[i]['name']
                         let address = rows[i]['address']
                         let size = rows[i]['size']
-                        let price = size.slice(0,2)*500
+                        let regex = /[^0-9]/g;
+                        let price = size.replace(regex, "") * 500;
 
                         let temp_html = `<tr>
                                             <td>${name}</td>
@@ -87,11 +88,12 @@
             let name = $('#name').val()
             let address = $('#address').val()
             let size = $('#size').val()
+            let price = $('#price').val()
 
             $.ajax({
                 type: 'POST',
                 url: '/mars',
-                data: {name_give: name, address_give:address, size_give:size},
+                data: {name_give: name, address_give:address, size_give:size, price_give:price},
                 success: function (response) {
                     alert(response['msg'])
                     window.location.reload()
